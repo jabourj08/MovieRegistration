@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewData["Title"] = "Movie Registration Form";
+}
+
+@model Movie
+
+<h1>Register a Movie!</h1>
+
+<form action="DisplayMovie" method="post">
+
+    @Html.LabelFor(m => m.Title)
+    <p><input type="text" name="Title" value="" maxlength="50" required /></p>
+    @Html.LabelFor(m => m.Genre)
+    <p>
+        <select name="Genre" required>
+            <option disabled="disabled" selected="selected">Select a Genre</option>
+            <option value="Action">Action</option>
+            <option value="Adventure">Adventure</option>
+            <option value="Comedy">Comedy</option>
+            <option value="Crime">Crime</option>
+            <option value="Drama">Drama</option>
+            <option value="Fantasy">Fantasy</option>
+            <option value="Historical">Historical</option>
+            <option value="Horror">Horror</option>
+            <option value="Mystery">Mystery</option>
+            <option value="Romance">Romance</option>
+            <option value="Science fiction">Science fiction</option>
+            <option value="Thriller">Thriller</option>
+            <option value="Western">Western</option>
+            <option value="Animation">Animation</option>
+        </select>
+    </p>
+    @Html.LabelFor(m => m.Year)
+    <p><input type="number" name="Year" value="" min="1880" max="2020" required /></p>
+
+    @Html.LabelFor(m => m.Actors) (Separated by comma)
+    <p>@Html.TextAreaFor(model => model.ActorsString)</p>
+    @Html.LabelFor(m => m.Directors) (Separated by comma)
+    <p>@Html.TextAreaFor(model => model.DirectorsString)</p>
+
+    <p><input type="submit" name="Register Movie!" /></p>
+
+</form>

@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewData["Title"] = "Display Movie";
+}
+
+@model Movie
+
+<h1>Added Movie</h1>
+
+<p>
+    <b>Movie Title:</b> @Model.Title<br />
+    <b>Genre:</b> @Model.Genre<br />
+    <b>Year Released:</b> @Model.Year<br />
+    @*Actors: @Model.Actors<br />*@
+    <b>Actors:</b>
+    @foreach (string a in Model.Actors)
+    {
+        if (Model.Actors.IndexOf(a) < Model.Actors.Count - 1)
+        {
+            <span>@Html.DisplayFor(item => a), </span>
+        }
+        else
+        {
+            <span>@Html.DisplayFor(item => a)</span>
+        }
+    }
+    <br />
+    <b>Directors:</b>
+    @foreach (string a in Model.Directors)
+    {
+        if (Model.Directors.IndexOf(a) < Model.Directors.Count - 1)
+        {
+            <span>@Html.DisplayFor(item => a), </span>
+        }
+        else
+        {
+            <span>@Html.DisplayFor(item => a)</span>
+        }
+    }
+</p>
