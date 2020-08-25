@@ -1,0 +1,104 @@
+﻿@using Microsoft.AspNetCore.Http
+@using System.Text.Json;
+@{
+    ViewData["Title"] = "Show Favorite Movies";
+}
+
+@model List<Movie>
+
+<h1>My Favorite Movies</h1>
+
+@{List<Movie> favMovieList = new List<Movie>();
+    var myList = Context.Session.GetString("MovieListSession") ?? "EmptySession";
+    if (myList != "EmptySession")
+    {
+        favMovieList = JsonSerializer.Deserialize<List<Movie>>(myList);
+    }
+    else
+    {
+        <p>There are no movies in your Favorites</p>
+    }
+}
+
+@{
+    if (favMovieList != null)
+    {
+        int count = 1;
+        foreach (Movie m in favMovieList)
+        {
+            <p class="border shadow">
+                <b>Movie Title:</b> @m.Title<br />
+                <b>Genre:</b> @m.Genre<br />
+                <b>Year Released:</b> @m.Year<br />
+                <b>Actors:</b>
+                @foreach (string a in m.Actors)
+                {
+                    if (m.Actors.IndexOf(a) < m.Actors.Count - 1)
+                    {
+                        <span>@Html.DisplayFor(item => a), </span>
+                    }
+                    else
+                    {
+                        <span>@Html.DisplayFor(item => a)</span>
+                    }
+                }
+                <br />
+                <b>Directors:</b>
+                @foreach (string a in m.Directors)
+                {
+                    if (m.Directors.IndexOf(a) < m.Directors.Count - 1)
+                    {
+                        <span>@Html.DisplayFor(item => a), </span>
+                    }
+                    else
+                    {
+                        <span>@Html.DisplayFor(item => a)</span>
+                    }
+                }
+            </p>
+            count++;
+        }
+    }
+    else
+    {
+        <p>There are no movies in your Favorites</p>
+    }
+}
+
+@*@{
+        int count = 1;
+        foreach (Movie m in @Model)
+        {
+            <p class="border shadow">
+                <b>Movie Title:</b> @m.Title<br />
+                <b>Genre:</b> @m.Genre<br />
+                <b>Year Released:</b> @m.Year<br />
+                <b>Actors:</b>
+                @foreach (string a in m.Actors)
+                {
+                    if (m.Actors.IndexOf(a) < m.Actors.Count - 1)
+                    {
+                        <span>@Html.DisplayFor(item => a), </span>
+                    }
+                    else
+                    {
+                        <span>@Html.DisplayFor(item => a)</span>
+                    }
+                }
+                <br />
+                <b>Directors:</b>
+                @foreach (string a in m.Directors)
+                {
+                    if (m.Directors.IndexOf(a) < m.Directors.Count - 1)
+                    {
+                        <span>@Html.DisplayFor(item => a), </span>
+                    }
+                    else
+                    {
+                        <span>@Html.DisplayFor(item => a)</span>
+                    }
+                }
+            </p>
+            count++;
+        }
+    }*@

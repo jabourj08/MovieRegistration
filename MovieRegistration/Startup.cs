@@ -24,6 +24,15 @@ namespace MovieRegistration
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            services.AddDistributedMemoryCache();
+            services.AddSession(options =>
+            {
+                //states how long a session will live after its last use
+                options.IdleTimeout = TimeSpan.FromMinutes(5);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,10 +50,14 @@ namespace MovieRegistration
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseCookiePolicy();
 
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseAuthentication();
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {
